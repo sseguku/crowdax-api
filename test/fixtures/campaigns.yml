@@ -1,0 +1,49 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  title: "Tech Startup Innovation Platform"
+  sector: "technology"
+  goal_amount: 50000.00
+  team: "Our team consists of experienced software engineers and product managers with backgrounds in fintech and e-commerce."
+  campaign_status: "draft"
+
+two:
+  user: two
+  title: "Healthcare AI Diagnostic Tool"
+  sector: "healthcare"
+  goal_amount: 100000.00
+  team: "Medical professionals and AI researchers working together to improve diagnostic accuracy."
+  campaign_status: "submitted"
+
+three:
+  user: three
+  title: "Sustainable Energy Solutions"
+  sector: "energy"
+  goal_amount: 250000.00
+  team: "Environmental engineers and renewable energy experts focused on sustainable solutions."
+  campaign_status: "approved"
+
+four:
+  user: one
+  title: "Retail Expansion"
+  sector: "retail"
+  goal_amount: 75000.00
+  team: "Retail experts and business strategists."
+  campaign_status: "rejected"
+
+five:
+  user: two
+  title: "Fintech Lending Platform"
+  sector: "finance"
+  goal_amount: 120000.00
+  team: "Fintech veterans and lending specialists."
+  campaign_status: "funded"
+
+six:
+  user: three
+  title: "Green Real Estate"
+  sector: "real_estate"
+  goal_amount: 200000.00
+  team: "Real estate and sustainability professionals."
+  campaign_status: "closed"

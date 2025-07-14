@@ -18,6 +18,10 @@ module JwtAuthenticatable
     end
   end
 
+  def current_user
+    @current_user ||= current_user_from_token
+  end
+
   def current_user_from_token
     return nil unless request.headers['Authorization']
     

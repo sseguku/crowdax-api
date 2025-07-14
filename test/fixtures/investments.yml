@@ -1,0 +1,31 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  campaign: one
+  amount: 1000.00
+  status: "confirmed"
+
+two:
+  user: two
+  campaign: one
+  amount: 2500.00
+  status: "pending"
+
+three:
+  user: three
+  campaign: two
+  amount: 5000.00
+  status: "confirmed"
+
+four:
+  user: one
+  campaign: three
+  amount: 3000.00
+  status: "cancelled"
+
+five:
+  user: two
+  campaign: three
+  amount: 1500.00
+  status: "refunded"

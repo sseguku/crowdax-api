@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Security Breach Alert</title>
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+    .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+    .header { background-color: #dc3545; color: white; padding: 20px; text-align: center; }
+    .content { padding: 20px; background-color: #f8f9fa; }
+    .breach-details { background-color: white; padding: 15px; margin: 15px 0; border-left: 4px solid #dc3545; }
+    .severity-critical { border-left-color: #dc3545; }
+    .severity-high { border-left-color: #fd7e14; }
+    .severity-medium { border-left-color: #ffc107; }
+    .severity-low { border-left-color: #28a745; }
+    .footer { text-align: center; padding: 20px; color: #6c757d; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🚨 SECURITY BREACH ALERT</h1>
+      <p><strong><%= @severity.upcase %> SEVERITY</strong></p>
+    </div>
+    
+    <div class="content">
+      <h2>Breach Details</h2>
+      
+      <div class="breach-details severity-<%= @severity %>">
+        <p><strong>Type:</strong> <%= @breach_type.humanize %></p>
+        <p><strong>Description:</strong> <%= @breach.description %></p>
+        <p><strong>Detected:</strong> <%= @breach.detected_at.strftime("%B %d, %Y at %I:%M %p") %></p>
+        
+        <% if @user %>
+          <p><strong>User:</strong> <%= @user.email %> (ID: <%= @user.id %>)</p>
+        <% end %>
+        
+        <% if @breach.ip_address %>
+          <p><strong>IP Address:</strong> <%= @breach.ip_address %></p>
+        <% end %>
+        
+        <% if @breach.affected_data %>
+          <p><strong>Affected Data:</strong> <%= @breach.affected_data %></p>
+        <% end %>
+        
+        <% if @breach.affected_records_count %>
+          <p><strong>Records Affected:</strong> <%= @breach.affected_records_count %></p>
+        <% end %>
+      </div>
+      
+      <h3>Immediate Actions Required:</h3>
+      <ul>
+        <li>Review the breach details above</li>
+        <li>Assess the impact on data security</li>
+        <li>Take appropriate containment measures</li>
+        <li>Update breach status in the admin dashboard</li>
+        <% if @severity == 'critical' %>
+          <li><strong>URGENT: Consider notifying affected users</strong></li>
+        <% end %>
+      </ul>
+      
+      <p><strong>Breach ID:</strong> <%= @breach.id %></p>
+    </div>
+    
+    <div class="footer">
+      <p>This is an automated security alert from Crowdax API</p>
+      <p>Please do not reply to this email</p>
+    </div>
+  </div>
+</body>
+</html> 

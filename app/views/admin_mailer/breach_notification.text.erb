@@ -1,0 +1,39 @@
+🚨 SECURITY BREACH ALERT - <%= @severity.upcase %> SEVERITY
+
+Breach Details:
+===============
+Type: <%= @breach_type.humanize %>
+Description: <%= @breach.description %>
+Detected: <%= @breach.detected_at.strftime("%B %d, %Y at %I:%M %p") %>
+
+<% if @user %>
+User: <%= @user.email %> (ID: <%= @user.id %>)
+<% end %>
+
+<% if @breach.ip_address %>
+IP Address: <%= @breach.ip_address %>
+<% end %>
+
+<% if @breach.affected_data %>
+Affected Data: <%= @breach.affected_data %>
+<% end %>
+
+<% if @breach.affected_records_count %>
+Records Affected: <%= @breach.affected_records_count %>
+<% end %>
+
+Immediate Actions Required:
+=========================
+- Review the breach details above
+- Assess the impact on data security
+- Take appropriate containment measures
+- Update breach status in the admin dashboard
+<% if @severity == 'critical' %>
+- URGENT: Consider notifying affected users
+<% end %>
+
+Breach ID: <%= @breach.id %>
+
+---
+This is an automated security alert from Crowdax API
+Please do not reply to this email 

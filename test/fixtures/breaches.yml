@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  breach_type: MyString
+  severity: MyString
+  description: MyText
+  detected_at: 2025-07-15 01:33:04
+  resolved_at: 2025-07-15 01:33:04
+  status: MyString
+
+two:
+  user: two
+  breach_type: MyString
+  severity: MyString
+  description: MyText
+  detected_at: 2025-07-15 01:33:04
+  resolved_at: 2025-07-15 01:33:04
+  status: MyString
