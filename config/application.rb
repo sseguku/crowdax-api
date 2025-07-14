@@ -28,5 +28,12 @@ module CrowdaxApi
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    # Don't generate system test files.
+    config.generators.system_tests = nil
+    
+    # Add RoleGuard middleware for role-based route protection
+    # Note: This middleware is optional and can be enabled when needed
+    # config.middleware.use RoleGuard
   end
 end
