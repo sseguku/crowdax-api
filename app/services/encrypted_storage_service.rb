@@ -3,7 +3,7 @@ class EncryptedStorageService
   require 'base64'
 
   def initialize
-    @encryption_key = Rails.application.credentials.encryption_key || generate_encryption_key
+    @encryption_key = ENV['ENCRYPTION_KEY'] || Rails.application.credentials.encryption_key || generate_encryption_key
     @algorithm = 'AES-256-GCM'
   end
 

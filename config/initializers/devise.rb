@@ -24,7 +24,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'noreply@crowdax.com'
+  config.mailer_sender = ENV['MAILER_SENDER'] || 'noreply@crowdax.com'
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
@@ -313,13 +313,13 @@ Devise.setup do |config|
 
   # ==> JWT Configuration
   config.jwt do |jwt|
-    jwt.secret = Rails.application.credentials.secret_key_base
+    jwt.secret = ENV['JWT_SECRET_KEY'] || Rails.application.credentials.secret_key_base
     jwt.dispatch_requests = [
       ['POST', %r{^/users/sign_in$}]
     ]
     jwt.revocation_requests = [
       ['DELETE', %r{^/users/sign_out$}]
     ]
-    jwt.expiration_time = 30.minutes.to_i
+    jwt.expiration_time = (ENV['JWT_EXPIRATION_TIME'] || 1800).to_i
   end
 end
