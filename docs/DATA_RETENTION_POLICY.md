@@ -1,229 +1,419 @@
 # Data Retention Policy
 
-**Effective Date:** July 14, 2025  
-**Version:** 1.0  
-**Compliance:** Uganda Data Protection and Privacy Act, 2019
+**Effective Date**: January 2025  
+**Version**: 1.0  
+**Last Updated**: January 2025
 
-## 1. Purpose
+## Table of Contents
 
-This policy establishes the framework for retaining and disposing of personal data in accordance with legal requirements and business needs. It ensures compliance with the Uganda Data Protection and Privacy Act, 2019, and other applicable regulations.
+- [Introduction](#introduction)
+- [Scope and Application](#scope-and-application)
+- [Legal and Regulatory Framework](#legal-and-regulatory-framework)
+- [Data Classification](#data-classification)
+- [Retention Periods](#retention-periods)
+- [Data Disposal](#data-disposal)
+- [Legal Hold](#legal-hold)
+- [Implementation](#implementation)
+- [Monitoring and Compliance](#monitoring-and-compliance)
+- [Contact Information](#contact-information)
 
-## 2. Legal Framework
+## Introduction
 
-### 2.1 Regulatory Requirements
+This Data Retention Policy establishes the framework for retaining and disposing of data within the Crowdax API platform. The policy ensures compliance with legal and regulatory requirements while maintaining data security and privacy standards.
 
-- **Uganda Data Protection and Privacy Act, 2019**
-- **Bank of Uganda KYC/AML Regulations**
-- **Financial Services Regulations**
-- **Tax and Accounting Requirements**
+### Purpose
 
-### 2.2 Retention Principles
+The purpose of this policy is to:
 
-- Data minimization and purpose limitation
-- Secure storage and disposal
-- Regular review and cleanup
-- Audit trail maintenance
+- Ensure compliance with legal and regulatory retention requirements
+- Minimize data storage costs and risks
+- Protect against unauthorized access to outdated data
+- Maintain data integrity and availability
+- Support business continuity and disaster recovery
 
-## 3. Data Categories and Retention Periods
+### Scope
 
-### 3.1 User Account Data
+This policy applies to all data processed by Crowdax API, including:
 
-| Data Type           | Retention Period              | Legal Basis           | Disposal Method   |
-| ------------------- | ----------------------------- | --------------------- | ----------------- |
-| User profiles       | 7 years after account closure | Regulatory compliance | Secure deletion   |
-| Authentication logs | 5 years                       | Security monitoring   | Automated cleanup |
-| Consent records     | 7 years after withdrawal      | Legal requirement     | Secure deletion   |
+- Personal data of users and customers
+- Business and operational data
+- System and technical data
+- Financial and transactional data
+- Legal and compliance data
 
-### 3.2 KYC and Identity Data
+## Scope and Application
 
-| Data Type                     | Retention Period           | Legal Basis           | Disposal Method   |
-| ----------------------------- | -------------------------- | --------------------- | ----------------- |
-| KYC documents                 | 5 years after verification | AML regulations       | Secure deletion   |
-| Identity verification records | 5 years                    | Regulatory compliance | Secure deletion   |
-| Verification logs             | 5 years                    | Audit requirements    | Automated cleanup |
+### Who This Policy Applies To
 
-### 3.3 Financial Data
+This policy applies to:
 
-| Data Type           | Retention Period | Legal Basis           | Disposal Method |
-| ------------------- | ---------------- | --------------------- | --------------- |
-| Investment records  | 7 years          | Financial regulations | Secure deletion |
-| Transaction logs    | 7 years          | Tax compliance        | Secure deletion |
-| Payment information | 7 years          | Financial regulations | Secure deletion |
+- All employees and contractors of Crowdax API
+- Third-party service providers and data processors
+- All systems and applications within the Crowdax platform
+- All data storage locations and backup systems
 
-### 3.4 Campaign and Business Data
+### What Data This Policy Covers
 
-| Data Type               | Retention Period         | Legal Basis      | Disposal Method |
-| ----------------------- | ------------------------ | ---------------- | --------------- |
-| Campaign data           | 7 years after completion | Business records | Secure deletion |
-| Investment agreements   | 7 years                  | Legal contracts  | Secure deletion |
-| Business communications | 5 years                  | Business records | Secure deletion |
+This policy covers all data types including:
 
-### 3.5 Security and Audit Data
+- **Structured Data**: Database records, user profiles, transaction data
+- **Unstructured Data**: Documents, emails, images, videos
+- **System Data**: Logs, configurations, backups
+- **Metadata**: Data about data, audit trails, access logs
 
-| Data Type      | Retention Period | Legal Basis         | Disposal Method   |
-| -------------- | ---------------- | ------------------- | ----------------- |
-| Security logs  | 5 years          | Security monitoring | Automated cleanup |
-| Breach records | 7 years          | Legal requirement   | Secure deletion   |
-| Audit trails   | 5 years          | Compliance          | Automated cleanup |
+## Legal and Regulatory Framework
 
-## 4. Data Disposal Procedures
+### Applicable Laws and Regulations
 
-### 4.1 Secure Deletion
+Our data retention practices comply with:
 
-- **Electronic Data:** Overwrite with random data, then delete
-- **Database Records:** Use secure deletion procedures
-- **Backup Data:** Include in regular backup rotation
-- **Log Files:** Automated cleanup with verification
+1. **Uganda Data Protection and Privacy Act, 2019 (UPDA)**
 
-### 4.2 Physical Records
+   - Data minimization principles
+   - Storage limitation requirements
+   - Data subject rights
 
-- **Paper Documents:** Cross-cut shredding
-- **Storage Media:** Physical destruction
-- **Certification:** Destruction certificates maintained
+2. **Financial Services Regulations**
 
-### 4.3 Third-Party Disposal
+   - KYC/AML requirements (7 years)
+   - Transaction record keeping (7 years)
+   - Regulatory reporting requirements
 
-- **Service Providers:** Contractual disposal requirements
-- **Cloud Storage:** Provider deletion procedures
-- **Verification:** Confirmation of disposal completion
+3. **Tax Laws**
 
-## 5. Retention Schedule
+   - Tax record retention (7 years)
+   - Financial statement retention
+   - Audit trail requirements
 
-### 5.1 Active Data
+4. **Electronic Transactions Act**
+   - Digital signature records
+   - Electronic communication records
+   - Transaction authentication data
 
-- **Current Users:** Full retention during active period
-- **Suspended Accounts:** 30-day grace period
-- **Pending Deletions:** 30-day processing period
+### Regulatory Requirements
 
-### 5.2 Inactive Data
+| Regulation              | Retention Period | Data Type                   |
+| ----------------------- | ---------------- | --------------------------- |
+| UPDA                    | 7 years          | Personal data               |
+| AML/CFT                 | 7 years          | KYC documents, transactions |
+| Tax Law                 | 7 years          | Financial records           |
+| Companies Act           | 7 years          | Corporate records           |
+| Electronic Transactions | 5 years          | Digital signatures          |
 
-- **Closed Accounts:** 7-year retention period
-- **Unverified KYC:** 1-year retention
-- **Failed Transactions:** 2-year retention
+## Data Classification
 
-### 5.3 Archive Data
+### 1. Personal Data
 
-- **Historical Records:** Compressed storage
-- **Compliance Data:** Encrypted archive
-- **Backup Data:** Regular rotation
+**Definition**: Data that identifies or can identify an individual.
 
-## 6. Automated Cleanup
+**Categories**:
 
-### 6.1 Scheduled Jobs
+- **Identity Data**: Names, addresses, phone numbers, email addresses
+- **Financial Data**: Bank accounts, payment information, investment history
+- **KYC Data**: Identity documents, verification records, risk assessments
+- **Behavioral Data**: User preferences, activity logs, interaction history
 
-```ruby
-# Daily cleanup
-- Failed login attempts (older than 30 days)
-- Temporary files (older than 7 days)
-- Session data (older than 24 hours)
+**Retention Period**: 7 years after account closure or last activity
 
-# Weekly cleanup
-- Audit logs (older than 5 years)
-- Security logs (older than 5 years)
-- Backup rotation
+### 2. Business Data
 
-# Monthly cleanup
-- User data (closed accounts older than 7 years)
-- KYC data (older than 5 years)
-- Transaction logs (older than 7 years)
-```
+**Definition**: Data related to business operations and transactions.
 
-### 6.2 Cleanup Verification
+**Categories**:
 
-- **Automated Checks:** Verify deletion completion
-- **Audit Trails:** Log all cleanup activities
-- **Error Handling:** Retry failed deletions
-- **Reporting:** Monthly cleanup reports
+- **Transaction Data**: Investment records, payment transactions, fees
+- **Campaign Data**: Fundraising campaigns, investor data, project information
+- **Operational Data**: System configurations, performance metrics, analytics
+- **Communication Data**: Customer support records, marketing communications
 
-## 7. Regulatory Holds
+**Retention Period**: 7 years after transaction completion
 
-### 7.1 Legal Holds
+### 3. System Data
 
-- **Litigation:** Data preserved during legal proceedings
-- **Investigation:** Data preserved during investigations
-- **Regulatory Inquiry:** Data preserved during inquiries
+**Definition**: Technical and operational system data.
 
-### 7.2 Hold Procedures
+**Categories**:
 
-- **Identification:** Mark data for preservation
-- **Notification:** Inform relevant parties
-- **Monitoring:** Regular hold status reviews
-- **Release:** Formal release procedures
+- **Security Logs**: Access logs, authentication records, security events
+- **Application Logs**: Error logs, performance logs, system events
+- **Backup Data**: System backups, database backups, configuration backups
+- **Audit Trails**: User actions, system changes, administrative activities
 
-## 8. Data Anonymization
+**Retention Period**: 1-3 years depending on data type
 
-### 8.1 Anonymization Criteria
+### 4. Legal and Compliance Data
 
-- **Research Purposes:** Statistical analysis
-- **Testing:** System development
-- **Compliance:** Regulatory reporting
+**Definition**: Data required for legal and regulatory compliance.
 
-### 8.2 Anonymization Methods
+**Categories**:
 
-- **Personal Identifiers:** Removal or replacement
-- **Quasi-identifiers:** Generalization
-- **Sensitive Data:** Aggregation
-- **Verification:** Re-identification testing
+- **Regulatory Reports**: Compliance reports, regulatory filings
+- **Legal Documents**: Contracts, agreements, legal correspondence
+- **Incident Records**: Security incidents, data breaches, investigations
+- **Policy Documents**: Policies, procedures, training records
 
-## 9. Monitoring and Compliance
+**Retention Period**: 7-10 years depending on legal requirements
 
-### 9.1 Regular Reviews
+## Retention Periods
 
-- **Monthly:** Retention policy compliance
-- **Quarterly:** Data inventory updates
-- **Annually:** Policy effectiveness review
+### User Account Data
 
-### 9.2 Compliance Reporting
+| Data Type                 | Retention Period                 | Disposal Method |
+| ------------------------- | -------------------------------- | --------------- |
+| User Profile              | 7 years after account closure    | Secure deletion |
+| Authentication Data       | 7 years after account closure    | Secure deletion |
+| Consent Records           | 7 years after consent withdrawal | Secure deletion |
+| Communication Preferences | 2 years after last activity      | Secure deletion |
 
-- **Regulatory Reports:** Annual compliance reports
-- **Internal Audits:** Quarterly internal reviews
-- **External Audits:** Annual external assessments
+### KYC and Verification Data
 
-## 10. Exception Handling
+| Data Type            | Retention Period              | Disposal Method |
+| -------------------- | ----------------------------- | --------------- |
+| Identity Documents   | 7 years after account closure | Secure deletion |
+| Verification Records | 7 years after verification    | Secure deletion |
+| Risk Assessments     | 7 years after assessment      | Secure deletion |
+| Compliance Reports   | 7 years after reporting       | Secure deletion |
 
-### 10.1 Extension Requests
+### Financial and Transaction Data
 
-- **Business Need:** Extended retention for business purposes
-- **Legal Requirement:** Extended retention for legal compliance
-- **Approval Process:** Formal approval required
+| Data Type           | Retention Period             | Disposal Method |
+| ------------------- | ---------------------------- | --------------- |
+| Transaction Records | 7 years after transaction    | Secure deletion |
+| Payment Information | 7 years after payment        | Secure deletion |
+| Investment Records  | 7 years after investment     | Secure deletion |
+| Fee Records         | 7 years after fee collection | Secure deletion |
 
-### 10.2 Emergency Procedures
+### Campaign and Investment Data
 
-- **Data Recovery:** Emergency data recovery procedures
-- **Legal Requests:** Expedited legal hold procedures
-- **Breach Response:** Emergency data preservation
+| Data Type             | Retention Period                 | Disposal Method |
+| --------------------- | -------------------------------- | --------------- |
+| Campaign Information  | 7 years after campaign end       | Secure deletion |
+| Investment Agreements | 7 years after agreement end      | Secure deletion |
+| Project Documentation | 7 years after project completion | Secure deletion |
+| Performance Data      | 7 years after investment         | Secure deletion |
 
-## 11. Training and Awareness
+### System and Technical Data
 
-### 11.1 Staff Training
+| Data Type          | Retention Period | Disposal Method |
+| ------------------ | ---------------- | --------------- |
+| Security Logs      | 1 year           | Secure deletion |
+| Application Logs   | 6 months         | Secure deletion |
+| Backup Data        | 30 days          | Secure deletion |
+| Configuration Data | 3 years          | Secure deletion |
 
-- **Annual Training:** Data retention policy training
-- **Role-Specific:** Tailored training for different roles
-- **Updates:** Training on policy changes
+### Marketing and Communication Data
 
-### 11.2 Awareness Programs
+| Data Type                | Retention Period            | Disposal Method |
+| ------------------------ | --------------------------- | --------------- |
+| Marketing Communications | 2 years after last activity | Secure deletion |
+| Newsletter Subscriptions | Until consent withdrawal    | Secure deletion |
+| Customer Support Records | 3 years after resolution    | Secure deletion |
+| Feedback and Reviews     | 5 years after submission    | Secure deletion |
 
-- **Regular Communications:** Policy reminders
-- **Best Practices:** Data handling guidelines
-- **Incident Response:** Emergency procedures
+## Data Disposal
 
-## 12. Policy Review
+### Disposal Methods
 
-### 12.1 Review Schedule
+1. **Secure Deletion**
 
-- **Annual Review:** Complete policy review
-- **Regulatory Updates:** Review for regulatory changes
-- **Technology Updates:** Review for technology changes
+   - Overwrite data with random patterns
+   - Use industry-standard deletion tools
+   - Verify deletion completion
+   - Maintain deletion audit trails
 
-### 12.2 Update Procedures
+2. **Physical Destruction**
 
-- **Stakeholder Input:** Gather feedback from stakeholders
-- **Legal Review:** Legal department review
-- **Approval Process:** Formal approval required
-- **Communication:** Staff notification of changes
+   - Shred physical documents
+   - Destroy storage media
+   - Use certified destruction services
+   - Maintain destruction certificates
+
+3. **Anonymization**
+   - Remove identifying information
+   - Maintain data utility for analytics
+   - Ensure re-identification is impossible
+   - Document anonymization methods
+
+### Disposal Procedures
+
+1. **Identification**: Identify data eligible for disposal
+2. **Verification**: Verify no legal holds or active investigations
+3. **Approval**: Obtain necessary approvals for disposal
+4. **Execution**: Execute disposal using approved methods
+5. **Verification**: Verify disposal completion
+6. **Documentation**: Document disposal activities
+
+### Disposal Schedule
+
+- **Daily**: Temporary files and cache data
+- **Weekly**: Log files and temporary data
+- **Monthly**: Expired user sessions and temporary records
+- **Quarterly**: Review and dispose of eligible data
+- **Annually**: Comprehensive data review and disposal
+
+## Legal Hold
+
+### Legal Hold Triggers
+
+Legal holds may be triggered by:
+
+- **Litigation**: Pending or threatened legal proceedings
+- **Regulatory Investigation**: Government or regulatory inquiries
+- **Internal Investigation**: Internal compliance or security investigations
+- **Audit Requirements**: External or internal audit requirements
+
+### Legal Hold Process
+
+1. **Identification**: Identify relevant data and systems
+2. **Notification**: Notify relevant personnel and departments
+3. **Implementation**: Implement technical and procedural holds
+4. **Monitoring**: Monitor compliance with hold requirements
+5. **Release**: Release hold when no longer required
+
+### Legal Hold Responsibilities
+
+- **Legal Team**: Determines hold requirements and scope
+- **IT Team**: Implements technical hold mechanisms
+- **Business Units**: Ensures procedural compliance
+- **Data Protection Officer**: Monitors hold compliance
+
+## Implementation
+
+### Technical Implementation
+
+1. **Automated Retention**
+
+   - Implement automated retention policies
+   - Use database triggers and scheduled jobs
+   - Configure backup retention policies
+   - Set up automated disposal processes
+
+2. **Data Lifecycle Management**
+
+   - Classify data at creation
+   - Apply retention policies automatically
+   - Monitor data aging and expiration
+   - Trigger disposal processes
+
+3. **Storage Optimization**
+   - Implement data archiving strategies
+   - Use compression and deduplication
+   - Optimize storage costs
+   - Monitor storage usage
+
+### Procedural Implementation
+
+1. **Training and Awareness**
+
+   - Train staff on retention requirements
+   - Provide regular policy updates
+   - Conduct compliance assessments
+   - Maintain training records
+
+2. **Documentation and Records**
+
+   - Document retention decisions
+   - Maintain disposal records
+   - Track legal holds
+   - Record compliance activities
+
+3. **Regular Reviews**
+   - Review retention policies annually
+   - Assess compliance with requirements
+   - Update procedures as needed
+   - Monitor regulatory changes
+
+## Monitoring and Compliance
+
+### Compliance Monitoring
+
+1. **Regular Audits**
+
+   - Quarterly retention compliance audits
+   - Annual policy effectiveness reviews
+   - External compliance assessments
+   - Regulatory compliance checks
+
+2. **Reporting**
+
+   - Monthly retention compliance reports
+   - Quarterly disposal activity reports
+   - Annual policy review reports
+   - Incident and exception reports
+
+3. **Metrics and KPIs**
+   - Data retention compliance rate
+   - Disposal completion rate
+   - Storage cost optimization
+   - Policy effectiveness measures
+
+### Compliance Responsibilities
+
+- **Data Protection Officer**: Overall compliance oversight
+- **IT Security Team**: Technical implementation and monitoring
+- **Legal Team**: Legal and regulatory compliance
+- **Business Units**: Operational compliance
+- **Management**: Policy approval and oversight
+
+### Incident Management
+
+1. **Retention Violations**
+
+   - Identify and document violations
+   - Assess impact and risk
+   - Implement corrective actions
+   - Report to management and regulators
+
+2. **Disposal Incidents**
+
+   - Investigate disposal failures
+   - Assess data exposure risks
+   - Implement containment measures
+   - Document lessons learned
+
+3. **Legal Hold Violations**
+   - Identify hold violations
+   - Assess legal and regulatory impact
+   - Implement corrective measures
+   - Report to legal counsel
+
+## Contact Information
+
+### Data Protection Officer
+
+For questions about this retention policy:
+
+- **Email**: dpo@crowdax.com
+- **Phone**: +256 XXX XXX XXX
+- **Address**: [Company Address], Kampala, Uganda
+
+### Legal Team
+
+For legal and regulatory questions:
+
+- **Email**: legal@crowdax.com
+- **Phone**: +256 XXX XXX XXX
+
+### IT Security Team
+
+For technical implementation questions:
+
+- **Email**: security@crowdax.com
+- **Phone**: +256 XXX XXX XXX
+
+## Policy Updates
+
+This policy is reviewed and updated:
+
+- **Annually**: Comprehensive policy review
+- **As Needed**: Response to regulatory changes
+- **Quarterly**: Minor updates and clarifications
+- **Incident-Based**: Updates following incidents or violations
+
+**Last Updated**: January 2025  
+**Next Review**: April 2025  
+**Version**: 1.0
 
 ---
 
-**Last Updated:** July 14, 2025  
-**Next Review:** January 14, 2026  
-**Policy Owner:** Data Protection Officer
+_This policy is part of our commitment to responsible data management and regulatory compliance. All employees and contractors must comply with this policy._

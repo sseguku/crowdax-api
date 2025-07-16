@@ -1,307 +1,410 @@
-# Environment Variables Setup Guide
+# Environment Setup Guide
 
 This guide explains how to set up and manage environment variables for the Crowdax API.
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Environment Variables](#environment-variables)
+- [Setup Instructions](#setup-instructions)
+- [Development Setup](#development-setup)
+- [Production Setup](#production-setup)
+- [Troubleshooting](#troubleshooting)
 
 ## Overview
 
 The Crowdax API uses environment variables to manage configuration across different environments (development, staging, production). This approach provides:
 
-- **Security**: Sensitive information is kept out of version control
-- **Flexibility**: Different configurations for different environments
-- **Maintainability**: Easy to update settings without code changes
-- **Compliance**: Better security practices for financial applications
+- **Security**: Sensitive data is kept out of source code
+- **Flexibility**: Easy configuration changes without code deployment
+- **Environment Isolation**: Different settings for different environments
+- **Compliance**: Meets Uganda Data Protection and Privacy Act requirements
 
-## Quick Setup
+## Environment Variables
 
-### 1. Automatic Setup (Recommended)
+### Required Variables
 
-Run the setup script to automatically create your environment file:
+| Variable                        | Description                | Default       | Required |
+| ------------------------------- | -------------------------- | ------------- | -------- |
+| `RAILS_ENV`                     | Rails environment          | `development` | Yes      |
+| `DATABASE_URL`                  | Database connection string | -             | Yes      |
+| `CROWDAX_API_DATABASE_PASSWORD` | Database password          | -             | Yes      |
+| `SECRET_KEY_BASE`               | Rails secret key base      | -             | Yes      |
+| `DEVISE_JWT_SECRET_KEY`         | JWT secret key             | -             | Yes      |
 
-```bash
-bin/setup-env.sh
-```
+### Optional Variables
 
-This script will:
-
-- Copy the template to `.env.local`
-- Generate secure encryption keys
-- Generate secure JWT secret keys
-- Create Rails master key if needed
-
-### 2. Manual Setup
-
-If you prefer manual setup:
-
-```bash
-# Copy the template
-cp env.template .env.local
-
-# Edit with your values
-nano .env.local
-```
-
-## Environment Variables Reference
-
-### Application Configuration
-
-| Variable               | Description                      | Default                 | Required |
-| ---------------------- | -------------------------------- | ----------------------- | -------- |
-| `RAILS_ENV`            | Rails environment                | `development`           | Yes      |
-| `RAILS_MASTER_KEY`     | Rails master key for credentials | -                       | Yes      |
-| `PLATFORM_NAME`        | Application name                 | `Crowdax`               | No       |
-| `PLATFORM_DESCRIPTION` | Application description          | -                       | No       |
-| `APP_HOST`             | Application host                 | `localhost:3000`        | No       |
-| `APP_URL`              | Application URL                  | `http://localhost:3000` | No       |
-
-### Database Configuration
-
-| Variable                        | Description                | Default | Required |
-| ------------------------------- | -------------------------- | ------- | -------- |
-| `DATABASE_URL`                  | Database connection URL    | -       | Yes      |
-| `CROWDAX_API_DATABASE_PASSWORD` | Database password          | -       | Yes      |
-| `RAILS_MAX_THREADS`             | Database pool size         | `5`     | No       |
-| `WEB_CONCURRENCY`               | Web server concurrency     | `2`     | No       |
-| `JOB_CONCURRENCY`               | Job processing concurrency | `1`     | No       |
-
-### Storage Configuration (DigitalOcean Spaces)
-
-| Variable             | Description                     | Default | Required |
-| -------------------- | ------------------------------- | ------- | -------- |
-| `DO_SPACES_KEY`      | DigitalOcean Spaces access key  | -       | Yes      |
-| `DO_SPACES_SECRET`   | DigitalOcean Spaces secret key  | -       | Yes      |
-| `DO_SPACES_REGION`   | DigitalOcean Spaces region      | `nyc3`  | No       |
-| `DO_SPACES_BUCKET`   | DigitalOcean Spaces bucket name | -       | Yes      |
-| `DO_SPACES_ENDPOINT` | DigitalOcean Spaces endpoint    | -       | No       |
+| Variable            | Description                | Default                  | Required |
+| ------------------- | -------------------------- | ------------------------ | -------- |
+| `RAILS_MAX_THREADS` | Maximum threads per server | `5`                      | No       |
+| `WEB_CONCURRENCY`   | Number of processes        | `2`                      | No       |
+| `PORT`              | Server port                | `3000`                   | No       |
+| `HOST`              | Server host                | `localhost`              | No       |
+| `DEPLOYMENT_DOMAIN` | Deployment domain          | `crowdax-api.loan360.co` | No       |
 
 ### Email Configuration
 
-| Variable                    | Description          | Default               | Required |
-| --------------------------- | -------------------- | --------------------- | -------- |
-| `SMTP_HOST`                 | SMTP server host     | `localhost`           | No       |
-| `SMTP_PORT`                 | SMTP server port     | `1025`                | No       |
-| `SMTP_DOMAIN`               | SMTP domain          | `localhost`           | No       |
-| `SMTP_USERNAME`             | SMTP username        | -                     | No       |
-| `SMTP_PASSWORD`             | SMTP password        | -                     | No       |
-| `SMTP_AUTHENTICATION`       | SMTP authentication  | `plain`               | No       |
-| `SMTP_ENABLE_STARTTLS_AUTO` | Enable STARTTLS      | `false`               | No       |
-| `MAILER_SENDER`             | Default sender email | `noreply@crowdax.com` | No       |
+| Variable        | Description          | Default               | Required         |
+| --------------- | -------------------- | --------------------- | ---------------- |
+| `SMTP_HOST`     | SMTP server host     | -                     | Yes (production) |
+| `SMTP_PORT`     | SMTP server port     | `587`                 | No               |
+| `SMTP_USERNAME` | SMTP username        | -                     | Yes (production) |
+| `SMTP_PASSWORD` | SMTP password        | -                     | Yes (production) |
+| `SMTP_DOMAIN`   | SMTP domain          | -                     | No               |
+| `MAILER_SENDER` | Default sender email | `noreply@crowdax.com` | No               |
 
-### JWT Authentication
+### File Storage
 
-| Variable              | Description                   | Default               | Required |
-| --------------------- | ----------------------------- | --------------------- | -------- |
-| `JWT_SECRET_KEY`      | JWT secret key                | Rails secret key base | No       |
-| `JWT_EXPIRATION_TIME` | JWT expiration time (seconds) | `1800`                | No       |
+| Variable                     | Description                | Default     | Required         |
+| ---------------------------- | -------------------------- | ----------- | ---------------- |
+| `AWS_ACCESS_KEY_ID`          | AWS access key             | -           | Yes (production) |
+| `AWS_SECRET_ACCESS_KEY`      | AWS secret key             | -           | Yes (production) |
+| `AWS_REGION`                 | AWS region                 | `us-east-1` | No               |
+| `AWS_BUCKET`                 | S3 bucket name             | -           | Yes (production) |
+| `DIGITALOCEAN_SPACES_KEY`    | DigitalOcean Spaces key    | -           | No               |
+| `DIGITALOCEAN_SPACES_SECRET` | DigitalOcean Spaces secret | -           | No               |
+| `DIGITALOCEAN_SPACES_BUCKET` | DigitalOcean Spaces bucket | -           | No               |
+| `DIGITALOCEAN_SPACES_REGION` | DigitalOcean Spaces region | -           | No               |
 
-### CORS Configuration
+### Security & Compliance
 
-| Variable               | Description                     | Default              | Required |
-| ---------------------- | ------------------------------- | -------------------- | -------- |
-| `CORS_ALLOWED_ORIGINS` | Comma-separated allowed origins | Development defaults | No       |
+| Variable              | Description                    | Default | Required |
+| --------------------- | ------------------------------ | ------- | -------- |
+| `JWT_EXPIRATION_TIME` | JWT token expiration (hours)   | `24`    | No       |
+| `PASSWORD_MIN_LENGTH` | Minimum password length        | `6`     | No       |
+| `RATE_LIMIT_REQUESTS` | Rate limit requests per minute | `60`    | No       |
+| `CORS_ORIGINS`        | Allowed CORS origins           | `*`     | No       |
+| `SSL_REDIRECT`        | Force SSL redirect             | `false` | No       |
 
-### Deployment Configuration
+### Monitoring & Logging
 
-| Variable                  | Description              | Default                  | Required |
-| ------------------------- | ------------------------ | ------------------------ | -------- |
-| `KAMAL_REGISTRY_PASSWORD` | Docker registry password | -                        | Yes      |
-| `KAMAL_REGISTRY_USERNAME` | Docker registry username | `your-user`              | No       |
-| `DEPLOYMENT_HOST`         | Deployment server IP     | `192.168.0.1`            | No       |
-| `DEPLOYMENT_DOMAIN`       | Deployment domain        | `crowdax-api.loan360.co` | No       |
+| Variable                | Description           | Default | Required |
+| ----------------------- | --------------------- | ------- | -------- |
+| `LOG_LEVEL`             | Logging level         | `info`  | No       |
+| `SENTRY_DSN`            | Sentry error tracking | -       | No       |
+| `NEW_RELIC_LICENSE_KEY` | New Relic license key | -       | No       |
+| `NEW_RELIC_APP_NAME`    | New Relic app name    | -       | No       |
 
-### External Services
+## Setup Instructions
 
-| Variable                   | Description              | Default                       | Required |
-| -------------------------- | ------------------------ | ----------------------------- | -------- |
-| `TERMS_AND_CONDITIONS_URL` | Terms and conditions URL | `https://example.com/terms`   | No       |
-| `PRIVACY_POLICY_URL`       | Privacy policy URL       | `https://example.com/privacy` | No       |
-| `CONTACT_EMAIL`            | Contact email            | `support@crowdax.com`         | No       |
-| `CONTACT_PHONE`            | Contact phone            | `+1234567890`                 | No       |
-
-### Security Configuration
-
-| Variable         | Description              | Default   | Required |
-| ---------------- | ------------------------ | --------- | -------- |
-| `ENCRYPTION_KEY` | File encryption key      | Generated | No       |
-| `FORCE_SSL`      | Force SSL connections    | `true`    | No       |
-| `ASSUME_SSL`     | Assume SSL in production | `true`    | No       |
-
-### Feature Flags
-
-| Variable                      | Description                 | Default | Required |
-| ----------------------------- | --------------------------- | ------- | -------- |
-| `ENABLE_BREACH_NOTIFICATIONS` | Enable breach notifications | `true`  | No       |
-| `ENABLE_DATA_SUBJECT_RIGHTS`  | Enable data subject rights  | `true`  | No       |
-| `ENABLE_AUDIT_LOGGING`        | Enable audit logging        | `true`  | No       |
-| `ENABLE_KYC_VERIFICATION`     | Enable KYC verification     | `true`  | No       |
-
-### Compliance Settings
-
-| Variable                   | Description                | Default | Required |
-| -------------------------- | -------------------------- | ------- | -------- |
-| `DATA_RETENTION_DAYS`      | Data retention period      | `2555`  | No       |
-| `BREACH_NOTIFICATION_DAYS` | Breach notification period | `72`    | No       |
-| `CONSENT_EXPIRATION_DAYS`  | Consent expiration period  | `365`   | No       |
-
-## Environment-Specific Configuration
-
-### Development Environment
-
-For development, you can use the default values in most cases. Key settings:
+### 1. Copy Environment Template
 
 ```bash
+cp env.template .env
+```
+
+### 2. Generate Required Secrets
+
+```bash
+# Generate Rails secret key base
+rails secret
+
+# Generate JWT secret key
+rails secret
+```
+
+### 3. Configure Database
+
+For PostgreSQL with the credentials you provided:
+
+```bash
+# Database URL format
+DATABASE_URL=postgresql://crowdax_25:xqDreWtbNa@localhost:5432/crowdax_api_development
+
+# Or separate variables
+CROWDAX_API_DATABASE_PASSWORD=xqDreWtbNa
+```
+
+### 4. Set Up Email (Development)
+
+For development, you can use MailHog:
+
+```bash
+# Install MailHog (macOS)
+brew install mailhog
+
+# Start MailHog
+mailhog
+
+# Access at http://localhost:8025
+```
+
+### 5. Configure File Storage (Development)
+
+For development, use local storage:
+
+```bash
+# No additional configuration needed for local storage
+```
+
+## Development Setup
+
+### Complete `.env` Example
+
+```bash
+# Rails Configuration
 RAILS_ENV=development
-DATABASE_URL=postgresql://postgres:password@localhost:5432/crowdax_api_development
+RAILS_MAX_THREADS=5
+WEB_CONCURRENCY=2
+PORT=3000
+HOST=localhost
+
+# Database
+DATABASE_URL=postgresql://crowdax_25:xqDreWtbNa@localhost:5432/crowdax_api_development
+CROWDAX_API_DATABASE_PASSWORD=xqDreWtbNa
+
+# Security
+SECRET_KEY_BASE=your_generated_secret_key_base_here
+DEVISE_JWT_SECRET_KEY=your_generated_jwt_secret_key_here
+
+# Email (Development - MailHog)
 SMTP_HOST=localhost
 SMTP_PORT=1025
+MAILER_SENDER=noreply@crowdax.com
+
+# JWT Configuration
+JWT_EXPIRATION_TIME=24
+PASSWORD_MIN_LENGTH=6
+
+# Rate Limiting
+RATE_LIMIT_REQUESTS=60
+
+# CORS
+CORS_ORIGINS=http://localhost:3000,http://localhost:3001
+
+# Logging
+LOG_LEVEL=debug
 ```
 
-### Production Environment
-
-For production, ensure all sensitive values are properly set:
+### Development Commands
 
 ```bash
+# Install dependencies
+bundle install
+
+# Setup database
+rails db:create
+rails db:migrate
+rails db:seed
+
+# Start development server
+rails server
+
+# Start background jobs (if using Sidekiq)
+bundle exec sidekiq
+
+# Run tests
+rails test
+```
+
+## Production Setup
+
+### Production Environment Variables
+
+```bash
+# Rails Configuration
 RAILS_ENV=production
-RAILS_MASTER_KEY=your_actual_master_key
-DATABASE_URL=your_production_database_url
-DO_SPACES_KEY=your_actual_spaces_key
-DO_SPACES_SECRET=your_actual_spaces_secret
-JWT_SECRET_KEY=your_actual_jwt_secret
-ENCRYPTION_KEY=your_actual_encryption_key
+RAILS_MAX_THREADS=5
+WEB_CONCURRENCY=4
+PORT=3000
+
+# Database
+DATABASE_URL=postgresql://crowdax_prod:secure_password@prod-db-host:5432/crowdax_api_production
+CROWDAX_API_DATABASE_PASSWORD=secure_production_password
+
+# Security
+SECRET_KEY_BASE=your_production_secret_key_base
+DEVISE_JWT_SECRET_KEY=your_production_jwt_secret_key
+
+# Email (Production)
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USERNAME=your_email@gmail.com
+SMTP_PASSWORD=your_app_password
+SMTP_DOMAIN=crowdax.com
+MAILER_SENDER=noreply@crowdax.com
+
+# File Storage (AWS S3 or DigitalOcean Spaces)
+AWS_ACCESS_KEY_ID=your_aws_access_key
+AWS_SECRET_ACCESS_KEY=your_aws_secret_key
+AWS_REGION=us-east-1
+AWS_BUCKET=crowdax-api-files
+
+# Or DigitalOcean Spaces
+DIGITALOCEAN_SPACES_KEY=your_spaces_key
+DIGITALOCEAN_SPACES_SECRET=your_spaces_secret
+DIGITALOCEAN_SPACES_BUCKET=crowdax-api-files
+DIGITALOCEAN_SPACES_REGION=nyc3
+
+# Security & Compliance
+JWT_EXPIRATION_TIME=24
+PASSWORD_MIN_LENGTH=8
+RATE_LIMIT_REQUESTS=100
+CORS_ORIGINS=https://crowdax.com,https://app.crowdax.com
+SSL_REDIRECT=true
+
+# Monitoring
+LOG_LEVEL=info
+SENTRY_DSN=your_sentry_dsn
+NEW_RELIC_LICENSE_KEY=your_new_relic_key
+NEW_RELIC_APP_NAME=Crowdax API
 ```
 
-### Staging Environment
-
-For staging, use production-like settings but with staging-specific values:
+### Production Deployment
 
 ```bash
-RAILS_ENV=staging
-DATABASE_URL=your_staging_database_url
-DO_SPACES_BUCKET=your-staging-bucket
+# Precompile assets
+rails assets:precompile
+
+# Run database migrations
+rails db:migrate
+
+# Start production server
+rails server -e production
 ```
-
-## Security Best Practices
-
-### 1. Never Commit Sensitive Data
-
-- The `.env.local` file is already in `.gitignore`
-- Never commit actual credentials to version control
-- Use different values for each environment
-
-### 2. Use Strong Keys
-
-- Generate strong, unique keys for each environment
-- Use the setup script to generate secure keys
-- Rotate keys regularly
-
-### 3. Environment Isolation
-
-- Use separate databases for each environment
-- Use separate storage buckets for each environment
-- Use different API keys for each environment
-
-### 4. Access Control
-
-- Limit access to production environment variables
-- Use secrets management in production
-- Monitor access to sensitive configuration
 
 ## Troubleshooting
 
 ### Common Issues
 
-#### 1. "Rails master key not found"
+#### 1. Database Connection Issues
+
+**Error**: `PG::ConnectionBad: could not connect to server`
+
+**Solution**:
 
 ```bash
-# Generate a new master key
-rails credentials:edit
+# Check if PostgreSQL is running
+brew services list | grep postgresql
+
+# Start PostgreSQL if not running
+brew services start postgresql
+
+# Verify connection
+psql -U crowdax_25 -h localhost -p 5432 -d crowdax_api_development
 ```
 
-#### 2. "Database connection failed"
+#### 2. Missing Environment Variables
 
-Check your `DATABASE_URL` and `CROWDAX_API_DATABASE_PASSWORD`:
+**Error**: `Missing required environment variable: SECRET_KEY_BASE`
+
+**Solution**:
 
 ```bash
-# Test database connection
-rails dbconsole
+# Generate secret key base
+rails secret
+
+# Add to .env file
+echo "SECRET_KEY_BASE=$(rails secret)" >> .env
 ```
 
-#### 3. "Storage service not configured"
+#### 3. Email Configuration Issues
 
-Ensure DigitalOcean Spaces credentials are set:
+**Error**: `Net::SMTPAuthenticationError`
+
+**Solution**:
+
+- Check SMTP credentials
+- Enable 2-factor authentication for Gmail
+- Use app-specific passwords
+- Verify SMTP settings in `.env`
+
+#### 4. File Upload Issues
+
+**Error**: `AWS::S3::Errors::AccessDenied`
+
+**Solution**:
+
+- Verify AWS credentials
+- Check bucket permissions
+- Ensure bucket exists
+- Verify region configuration
+
+#### 5. JWT Token Issues
+
+**Error**: `JWT::DecodeError`
+
+**Solution**:
 
 ```bash
-# Check if variables are set
-echo $DO_SPACES_KEY
-echo $DO_SPACES_SECRET
+# Regenerate JWT secret
+rails secret
+
+# Update .env file
+echo "DEVISE_JWT_SECRET_KEY=$(rails secret)" >> .env
+
+# Restart application
+rails server
 ```
 
-#### 4. "JWT authentication failed"
+### Environment Validation
 
-Check JWT configuration:
-
-```bash
-# Verify JWT secret is set
-echo $JWT_SECRET_KEY
-```
-
-### Validation Script
-
-Run this script to validate your environment configuration:
+Use the validation script to check your environment:
 
 ```bash
+# Run environment validation
 bin/validate-env.sh
 ```
 
-## Deployment Considerations
+### Database Setup Issues
 
-### Kamal Deployment
-
-For Kamal deployment, ensure these variables are set:
+If you encounter database permission issues:
 
 ```bash
-KAMAL_REGISTRY_PASSWORD=your_registry_password
-DEPLOYMENT_HOST=your_server_ip
-DEPLOYMENT_DOMAIN=your_domain.com
+# Connect as superuser
+psql postgres
+
+# Create user and database
+CREATE USER crowdax_25 WITH PASSWORD 'xqDreWtbNa';
+ALTER USER crowdax_25 CREATEDB;
+CREATE DATABASE crowdax_api_development OWNER crowdax_25;
+
+# Grant privileges
+GRANT ALL PRIVILEGES ON DATABASE crowdax_api_development TO crowdax_25;
 ```
 
-### Docker Deployment
+### SSL/HTTPS Setup
 
-For Docker deployment, pass environment variables:
+For production SSL setup, see [SSL Setup Guide](SSL_SETUP.md).
+
+### Performance Tuning
+
+For production performance optimization:
 
 ```bash
-docker run -e RAILS_ENV=production \
-  -e DATABASE_URL=your_db_url \
-  -e DO_SPACES_KEY=your_key \
-  -e DO_SPACES_SECRET=your_secret \
-  crowdax_api
+# Increase worker processes
+WEB_CONCURRENCY=4
+
+# Increase database pool size
+RAILS_MAX_THREADS=10
+
+# Enable caching
+RAILS_CACHE_STORE=redis_cache_store
 ```
 
-## Monitoring and Maintenance
+## Security Best Practices
 
-### Regular Tasks
+1. **Never commit `.env` files** to version control
+2. **Use strong, unique passwords** for all services
+3. **Rotate secrets regularly** (quarterly recommended)
+4. **Use environment-specific configurations**
+5. **Enable SSL/TLS** in production
+6. **Implement rate limiting** to prevent abuse
+7. **Monitor and log** all API access
+8. **Regular security audits** of environment variables
 
-1. **Rotate Keys**: Regularly rotate encryption and JWT keys
-2. **Update Passwords**: Update database and service passwords
-3. **Review Access**: Review who has access to production credentials
-4. **Backup Configuration**: Backup your environment configuration
+## Compliance Notes
 
-### Monitoring
+- All environment variables containing personal data must be encrypted
+- Database passwords must meet minimum complexity requirements
+- JWT secrets must be at least 32 characters long
+- Email configurations must support secure transmission
+- File storage must be configured for data protection compliance
 
-- Monitor for unauthorized access attempts
-- Log configuration changes
-- Alert on missing required variables
-
-## Support
-
-If you encounter issues with environment configuration:
-
-1. Check the troubleshooting section above
-2. Verify all required variables are set
-3. Ensure proper file permissions
-4. Check Rails logs for configuration errors
-
-For additional help, refer to:
+## Additional Resources
 
 - [Rails Environment Configuration](https://guides.rubyonrails.org/configuring.html)
+- [Devise Configuration](https://github.com/heartcombo/devise)
+- [JWT Configuration](https://github.com/waiting-for-dev/devise-jwt)
 - [Kamal Deployment Documentation](https://kamal-deploy.org/)
 - [DigitalOcean Spaces Documentation](https://docs.digitalocean.com/products/spaces/)
