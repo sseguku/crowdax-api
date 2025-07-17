@@ -20,6 +20,8 @@ Rails.application.routes.draw do
         get :campaigns, to: '/api/v1/public#campaigns'
         get :statistics, to: '/api/v1/public#statistics'
         get :metadata, to: '/api/v1/public#metadata'
+        post :entrepreneur_registration, to: '/api/v1/public#entrepreneur_registration'
+        post :investor_registration, to: '/api/v1/public#investor_registration'
       end
       
       resources :users, only: [] do

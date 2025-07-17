@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_14_225918) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_16_234448) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -169,9 +169,65 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_14_225918) do
     t.datetime "consent_given_at"
     t.datetime "consent_withdrawn_at"
     t.string "consent_version"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "company_name"
+    t.string "industry"
+    t.string "business_stage"
+    t.date "founded_date"
+    t.string "website"
+    t.text "business_description"
+    t.text "problem_being_solved"
+    t.text "target_market"
+    t.text "competitive_advantage"
+    t.decimal "funding_amount_needed", precision: 15, scale: 2
+    t.text "funding_purpose"
+    t.decimal "current_annual_revenue_min", precision: 15, scale: 2
+    t.decimal "current_annual_revenue_max", precision: 15, scale: 2
+    t.decimal "projected_annual_revenue_min", precision: 15, scale: 2
+    t.decimal "projected_annual_revenue_max", precision: 15, scale: 2
+    t.integer "team_size_min"
+    t.integer "team_size_max"
+    t.integer "number_of_co_founders"
+    t.string "tin"
+    t.string "legal_structure"
+    t.string "phone_number"
+    t.string "job_title"
+    t.integer "years_of_experience_min"
+    t.integer "years_of_experience_max"
+    t.decimal "typical_investment_amount_min", precision: 15, scale: 2
+    t.decimal "typical_investment_amount_max", precision: 15, scale: 2
+    t.string "investment_frequency"
+    t.text "preferred_industries", default: [], array: true
+    t.text "preferred_investment_stages", default: [], array: true
+    t.decimal "annual_income_min", precision: 15, scale: 2
+    t.decimal "annual_income_max", precision: 15, scale: 2
+    t.decimal "net_worth_min", precision: 15, scale: 2
+    t.decimal "net_worth_max", precision: 15, scale: 2
+    t.boolean "accredited_investor", default: false
+    t.string "risk_tolerance"
+    t.text "previous_investment_experience"
+    t.text "investment_goals"
+    t.decimal "minimum_investment", precision: 15, scale: 2
+    t.decimal "maximum_investment", precision: 15, scale: 2
+    t.boolean "terms_of_service_accepted", default: false
+    t.boolean "privacy_policy_accepted", default: false
+    t.datetime "terms_accepted_at"
+    t.datetime "privacy_accepted_at"
+    t.index ["accredited_investor"], name: "index_users_on_accredited_investor"
+    t.index ["business_stage"], name: "index_users_on_business_stage"
+    t.index ["company_name"], name: "index_users_on_company_name"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["industry"], name: "index_users_on_industry"
+    t.index ["investment_frequency"], name: "index_users_on_investment_frequency"
+    t.index ["job_title"], name: "index_users_on_job_title"
+    t.index ["legal_structure"], name: "index_users_on_legal_structure"
+    t.index ["phone_number"], name: "index_users_on_phone_number"
+    t.index ["preferred_industries"], name: "index_users_on_preferred_industries", using: :gin
+    t.index ["preferred_investment_stages"], name: "index_users_on_preferred_investment_stages", using: :gin
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["risk_tolerance"], name: "index_users_on_risk_tolerance"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

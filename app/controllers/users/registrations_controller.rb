@@ -6,6 +6,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     build_resource(sign_up_params)
     
+    # Set role to entrepreneur if not specified
+    resource.role = 'entrepreneur' if resource.role.blank?
+    
     resource.save
     yield resource if block_given?
     
@@ -96,11 +99,43 @@ class Users::RegistrationsController < Devise::RegistrationsController
   private
 
   def sign_up_params
-    params.require(:user).permit(:email, :password, :password_confirmation, :role)
+    params.require(:user).permit(
+      :email, :password, :password_confirmation, :role,
+      # Entrepreneur-specific fields
+      :first_name, :last_name, :phone_number, :company_name, :industry, :business_stage,
+      :founded_date, :website, :business_description, :problem_being_solved,
+      :target_market, :competitive_advantage, :funding_amount_needed,
+      :funding_purpose, :current_annual_revenue_min, :current_annual_revenue_max,
+      :projected_annual_revenue_min, :projected_annual_revenue_max,
+      :team_size_min, :team_size_max, :number_of_co_founders, :tin, :legal_structure,
+      # Investor-specific fields
+      :job_title, :years_of_experience_min, :years_of_experience_max,
+      :typical_investment_amount_min, :typical_investment_amount_max, :investment_frequency,
+      :preferred_industries, :preferred_investment_stages, :annual_income_min, :annual_income_max,
+      :net_worth_min, :net_worth_max, :accredited_investor, :risk_tolerance,
+      :previous_investment_experience, :investment_goals, :minimum_investment, :maximum_investment,
+      :terms_of_service_accepted, :privacy_policy_accepted
+    )
   end
 
   def account_update_params
-    params.require(:user).permit(:email, :password, :password_confirmation, :current_password, :role)
+    params.require(:user).permit(
+      :email, :password, :password_confirmation, :current_password, :role,
+      # Entrepreneur-specific fields
+      :first_name, :last_name, :phone_number, :company_name, :industry, :business_stage,
+      :founded_date, :website, :business_description, :problem_being_solved,
+      :target_market, :competitive_advantage, :funding_amount_needed,
+      :funding_purpose, :current_annual_revenue_min, :current_annual_revenue_max,
+      :projected_annual_revenue_min, :projected_annual_revenue_max,
+      :team_size_min, :team_size_max, :number_of_co_founders, :tin, :legal_structure,
+      # Investor-specific fields
+      :job_title, :years_of_experience_min, :years_of_experience_max,
+      :typical_investment_amount_min, :typical_investment_amount_max, :investment_frequency,
+      :preferred_industries, :preferred_investment_stages, :annual_income_min, :annual_income_max,
+      :net_worth_min, :net_worth_max, :accredited_investor, :risk_tolerance,
+      :previous_investment_experience, :investment_goals, :minimum_investment, :maximum_investment,
+      :terms_of_service_accepted, :privacy_policy_accepted
+    )
   end
 
   def update_resource(resource, params)
