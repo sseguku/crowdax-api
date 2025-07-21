@@ -1,4 +1,5 @@
 class Api::V1::PublicController < ApplicationController
+  skip_before_action :authenticate_user_from_token!
 
   # GET /api/v1/public/campaigns
   def campaigns

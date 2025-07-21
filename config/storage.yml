@@ -39,5 +39,4 @@ spaces:
   secret_access_key: <%= ENV["DO_SPACES_SECRET"] %>
   region: <%= ENV["DO_SPACES_REGION"] || "nyc3" %>
   bucket: <%= ENV["DO_SPACES_BUCKET"] %>
-  endpoint: <%= ENV["DO_SPACES_ENDPOINT"] || "https://nyc3.digitaloceanspaces.com" %>
   force_path_style: false

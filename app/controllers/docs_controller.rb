@@ -1,4 +1,6 @@
 class DocsController < ApplicationController
+  skip_before_action :authenticate_user_from_token!
+
   def index
     @docs = [
       { title: 'Authentication Guide', path: 'authentication', description: 'JWT authentication and API endpoints' },

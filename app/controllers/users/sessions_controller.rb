@@ -1,13 +1,14 @@
 class Users::SessionsController < Devise::SessionsController
   respond_to :json
   skip_before_action :verify_authenticity_token, only: [:create, :destroy]
+  skip_before_action :authenticate_user_from_token!, only: [:create, :destroy]
 
   # POST /users/sign_in
   def create
     user = User.find_by(email: sign_in_params[:email])
     
     if user&.valid_password?(sign_in_params[:password])
-      sign_in(user)
+      sign_in(user, store: false)
       render json: {
         status: { code: 200, message: 'Logged in successfully.' },
         data: {
